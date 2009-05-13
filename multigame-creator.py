@@ -46,7 +46,11 @@ for filename in infiles:
 	outf.write(offset)
 	outf.write(size)
 
-# Alignment
+	# Entry alignment
+	outf.seek(roundup(outf.tell(), 32))
+
+
+# Data alignment
 outf.seek(roundup(outf.tell(), 0x20000))
 
 # Write games
