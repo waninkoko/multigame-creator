@@ -64,8 +64,17 @@ for filename in infiles:
 
 	inf.seek(0)
 
-	# Write game and align
-	outf.write(inf.read())
+	# Game size
+	size = os.path.getsize(filename)
+
+	for i in range(0, size, 4096):
+		# Block size
+		block = min(size - i, 4096)
+
+		# Write data
+		outf.write(inf.read(block))
+
+	# Game alignment
 	outf.seek(roundup(outf.tell(), 0x20000))
 
 	inf.close()
